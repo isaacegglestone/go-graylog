@@ -100,21 +100,26 @@ api_version | GRAYLOG_API_VERSION | "v2" | Graylog's API version. The default va
 * [dashboard_widget](docs/dashboard_widget.md)
 * [dashboard_widget_positions](docs/dashboard_widget_positions.md)
 * [extractor](docs/extractor.md)
+* [event_definition](docs/event_definition.md)
+* [event_notification](docs/event_notification.md)
 * [grok_pattern](docs/grok_pattern.md)
 * [index_set](docs/index_set.md)
 * [input](docs/input.md)
 * [input_static_fields](docs/input_static_fields.md)
 * [ldap_setting](docs/ldap_setting.md)
+* [output](docs/output.md)
 * [pipeline](docs/pipeline.md)
 * [pipeline_rule](docs/pipeline_rule.md)
 * [pipeline_connection](docs/pipeline_connection.md)
 * [role](docs/role.md)
 * [stream](docs/stream.md)
+* [stream_output](docs/stream_output.md)
 * [stream_rule](docs/stream_rule.md)
 * [user](docs/user.md)
 
 ## Data sources
 
+* [dashboard](docs/data_source_dashboard.md)
 * [index_set](docs/data_source_index_set.md)
 * [stream](docs/data_source_stream.md)
 

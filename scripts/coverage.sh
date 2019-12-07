@@ -1,8 +1,25 @@
-cd `dirname $0`/.. || exit 1
-echo "pwd: $PWD" || exit 1
+ee() {
+  echo "+ $@"
+  eval "$@"
+}
 
-source scripts/decho.sh || exit 1
+cd `dirname $0`/..
 
-decho mkdir -p coverage/$1 || exit 1
-decho go test ./$1 -coverprofile=coverage/$1/coverage.txt -covermode=atomic || exit 1
-decho go tool cover -html=coverage/$1/coverage.txt
+if [ "$1" = "" ]; then
+  target=`go list ./... | fzf`
+  if [ "$target" = "" ]; then
+    exit 0
+  fi
+  target=${target#github.com/suzuki-shunsuke/go-graylog/v8/}
+else
+  target=$1
+fi
+
+if [ ! -d "$target" ]; then
+  echo "$target is not found" >&2
+  exit 1
+fi
+
+ee mkdir -p .coverage/$target || exit 1
+ee go test ./$target -coverprofile=.coverage/$target/coverage.txt -covermode=atomic || exit 1
+ee go tool cover -html=.coverage/$target/coverage.txt

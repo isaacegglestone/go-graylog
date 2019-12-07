@@ -13,9 +13,13 @@ type Endpoints struct {
 	collectorConfigurations  string
 	dashboards               string
 	enabledStreams           string
+	eventDefinitions         string
+	eventNotifications       string
 	indexSets                string
 	indexSetStats            string
 	inputs                   string
+	outputs                  string
+	availableOutputs         string
 	pipelines                string
 	pipelineConnections      string
 	pipelineRules            string
@@ -65,18 +69,24 @@ func newEndpoints(endpoint, version string) (*Endpoints, error) {
 		connectPipelinesToStream = endpoint + "/plugins/org.graylog.plugins.pipelineprocessor/system/pipelines/connections/to_stream"
 	}
 	return &Endpoints{
-		alarmCallbacks:           endpoint + "/alerts/callbacks",
-		alerts:                   endpoint + "/streams/alerts",
-		alertConditions:          endpoint + "/alerts/conditions",
-		collectorConfigurations:  endpoint + "/plugins/org.graylog.plugins.collector/configurations",
-		dashboards:               endpoint + "/dashboards",
-		enabledStreams:           endpoint + "/streams/enabled",
-		indexSets:                endpoint + "/system/indices/index_sets",
-		indexSetStats:            endpoint + "/system/indices/index_sets/stats",
-		inputs:                   endpoint + "/system/inputs",
-		ldapGroups:               endpoint + "/system/ldap/groups",
-		ldapGroupRoleMapping:     endpoint + "/system/ldap/settings/groups",
-		ldapSetting:              endpoint + "/system/ldap/settings",
+		alarmCallbacks:          endpoint + "/alerts/callbacks",
+		alerts:                  endpoint + "/streams/alerts",
+		alertConditions:         endpoint + "/alerts/conditions",
+		collectorConfigurations: endpoint + "/plugins/org.graylog.plugins.collector/configurations",
+		dashboards:              endpoint + "/dashboards",
+		enabledStreams:          endpoint + "/streams/enabled",
+		eventDefinitions:        endpoint + "/events/definitions",
+		eventNotifications:      endpoint + "/events/notifications",
+		indexSets:               endpoint + "/system/indices/index_sets",
+		indexSetStats:           endpoint + "/system/indices/index_sets/stats",
+		inputs:                  endpoint + "/system/inputs",
+		ldapGroups:              endpoint + "/system/ldap/groups",
+		ldapGroupRoleMapping:    endpoint + "/system/ldap/settings/groups",
+		ldapSetting:             endpoint + "/system/ldap/settings",
+
+		outputs:          endpoint + "/system/outputs",
+		availableOutputs: endpoint + "/system/outputs/available",
+
 		pipelines:                pipelines,
 		pipelineConnections:      pipelineConns,
 		connectStreamsToPipeline: connectStreamsToPipeline,

@@ -16,7 +16,7 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/sanity-io/litter"
 
-	"github.com/suzuki-shunsuke/go-graylog"
+	"github.com/suzuki-shunsuke/go-graylog/v8"
 )
 
 type (
@@ -65,33 +65,47 @@ func dump(input string, dest interface{}) error {
 	if err := json.NewDecoder(f).Decode(dest); err != nil {
 		return err
 	}
-	litter.Dump(dest)
+	options := litter.Options{
+		HideZeroValues: true,
+	}
+	options.Dump(dest)
 	return nil
 }
 
 var (
 	data = map[string]dumper{
-		"users":                       Users{},
-		"user":                        User{},
-		"roles":                       Roles{},
-		"role":                        Role{},
-		"index_sets":                  IndexSets{},
-		"index_set":                   IndexSet{},
-		"inputs":                      Inputs{},
-		"input":                       Input{},
-		"streams":                     Streams{},
-		"stream":                      Stream{},
-		"stream_rules":                StreamRules{},
-		"stream_rule":                 StreamRule{},
-		"dashboards":                  Dashboards{},
-		"dashboard":                   Dashboard{},
-		"stream_alarm_callbacks":      StreamAlarmCallbacks{},
-		"slack_stream_alarm_callback": StreamAlarmCallback{},
-		"http_stream_alarm_callback":  StreamAlarmCallback{},
-		"email_stream_alarm_callback": StreamAlarmCallback{},
-		"stream_alert_conditions":     StreamAlertConditions{},
-		"views":                       Views{},
-		"view":                        View{},
+		"response_create_event_notification": EventNotification{},
+		"request_create_event_notification":  EventNotification{},
+		"event_definition/gets/response":     EventDefinitions{},
+		"event_definition/get/response":      EventDefinition{},
+		"event_definition/create/request":    EventDefinition{},
+		"event_definition/create/response":   EventDefinition{},
+		"event_definition/update/request":    EventDefinition{},
+		"event_definition/update/response":   EventDefinition{},
+		"event_notifications":                EventNotifications{},
+		"users":                              Users{},
+		"user":                               User{},
+		"roles":                              Roles{},
+		"role":                               Role{},
+		"index_sets":                         IndexSets{},
+		"index_set":                          IndexSet{},
+		"inputs":                             Inputs{},
+		"input":                              Input{},
+		"streams":                            Streams{},
+		"stream":                             Stream{},
+		"stream_rules":                       StreamRules{},
+		"stream_rule":                        StreamRule{},
+		"dashboards":                         Dashboards{},
+		"dashboard":                          Dashboard{},
+		"stream_alarm_callbacks":             StreamAlarmCallbacks{},
+		"slack_stream_alarm_callback":        StreamAlarmCallback{},
+		"http_stream_alarm_callback":         StreamAlarmCallback{},
+		"email_stream_alarm_callback":        StreamAlarmCallback{},
+		"stream_alert_conditions":            StreamAlertConditions{},
+		"outputs":                            Outputs{},
+		"stdout_output":                      Output{},
+		"views":                              Views{},
+		"view":                               View{},
 	}
 )
 
@@ -171,6 +185,30 @@ type (
 	View struct {
 		data graylog.View
 	}
+
+	Output struct {
+		data graylog.Output
+	}
+
+	Outputs struct {
+		data graylog.OutputsBody
+	}
+
+	EventNotification struct {
+		data graylog.EventNotification
+	}
+
+	EventNotifications struct {
+		data graylog.EventNotificationsBody
+	}
+
+	EventDefinitions struct {
+		data graylog.EventDefinitionsBody
+	}
+
+	EventDefinition struct {
+		data graylog.EventDefinition
+	}
 )
 
 func (users Users) dump(input string) error {
@@ -247,4 +285,28 @@ func (v Views) dump(input string) error {
 
 func (v View) dump(input string) error {
 	return dump(input, &v.data)
+}
+
+func (output Output) dump(input string) error {
+	return dump(input, &output.data)
+}
+
+func (outputs Outputs) dump(input string) error {
+	return dump(input, &outputs.data)
+}
+
+func (notification EventNotification) dump(input string) error {
+	return dump(input, &notification.data)
+}
+
+func (notifications EventNotifications) dump(input string) error {
+	return dump(input, &notifications.data)
+}
+
+func (definitions EventDefinitions) dump(input string) error {
+	return dump(input, &definitions.data)
+}
+
+func (definition EventDefinition) dump(input string) error {
+	return dump(input, &definition.data)
 }
